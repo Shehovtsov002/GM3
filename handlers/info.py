@@ -1,6 +1,6 @@
 from aiogram import Router, types
 from aiogram.filters import Command
-from picture import get_random_pic
+from .picture import get_random_pic
 
 
 info_router = Router()

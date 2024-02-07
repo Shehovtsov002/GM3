@@ -14,6 +14,6 @@ async def random_pic_command(message: types.Message):
 
 def get_random_pic() -> types.FSInputFile:
     """return path to file"""
-    folder_path = "../src/images"
+    folder_path = "src/images"
     files = os.listdir(folder_path)
     return types.FSInputFile(os.path.join(folder_path, random.choice(files)))
