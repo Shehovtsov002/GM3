@@ -19,3 +19,13 @@ def genres_keyboard():
         kb_buttons.append(sub_list)
     keyboard = types.ReplyKeyboardMarkup(keyboard=kb_buttons)
     return keyboard
+
+
+def title_keyboard(url):
+    return types.InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                types.InlineKeyboardButton(text="Читать", url=url)
+            ]
+        ]
+    )

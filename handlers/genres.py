@@ -1,7 +1,8 @@
 from aiogram import Router, types, F
 from aiogram.filters import Command
-from keyboards.genres_kb import genres_keyboard
+from keyboards.genres_kb import genres_keyboard, title_keyboard
 from bot import db
+import os
 
 genres_router = Router()
 genres = db.get_genres()
@@ -21,11 +22,13 @@ async def get_genres(callback: types.CallbackQuery):
 async def get_titles(message: types.Message):
     kb = types.ReplyKeyboardRemove()
     titles = db.get_titles(message.text)
-    await message.answer(text=f"{titles}")
     if not titles:
         await message.answer(text="Для этого жанра пока не добавлен ни один тайтл")
         return
     for title in titles:
-        await message.answer(text=f"Image: {title['image']}\n"
-                                  f"Name: {title['name']}\n"
-                                  f"Description: {title['description']}", reply_markup=kb)
+        await message.answer_photo(caption=f"{title['type']}: {title['name']}\n"
+                                        f"Жанр: {title['genre']}\n"
+                                        f"Описание: {title['description']}",
+                                   reply_markup=title_keyboard(title['url']),
+                                   photo=types.FSInputFile(title['image']))
+
