@@ -4,7 +4,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from keyboards import registration_kb as keyboards
 from keyboards.main_kb import main_keyboard
-from bot import user
+from bot import db
 
 
 class Registration(StatesGroup):
@@ -24,8 +24,8 @@ async def registration(callback: types.CallbackQuery, state: FSMContext):
     await state.update_data(id=callback.from_user.id)
     await state.update_data(name=callback.from_user.first_name)
     await callback.message.answer(text=f"{callback.from_user.first_name}, "
-                              f"для регистрации вам нужно указать свой возраст\n"
-                              f"Введите /stop для отмены")
+                                       f"для регистрации вам нужно указать свой возраст\n"
+                                       f"Введите /stop для отмены")
 
 
 @registration_router.message(Command("stop"))
@@ -69,9 +69,16 @@ async def process_favorite(callback: types.CallbackQuery, state: FSMContext):
         await callback.message.answer(text="На этом регистрация завершена!\n"
                                            "Теперь вы можете воспользоваться всеми функциями бота",
                                       reply_markup=main_keyboard())
-        # TODO: Add user to db
+        # Add user to db
+        db.add_user(
+            data.get("id"),
+            data.get("name"),
+            data.get("age"),
+            data.get("comics_type"),
+            data.get("favorite_genres"),
+        )
         await state.clear()
+        return
     favorites = data.get("favorite_genres", set())
     favorites.add(callback.data)
     await state.update_data(favorite_genres=favorites)
-    await callback.message.answer(text=f"{favorites}")

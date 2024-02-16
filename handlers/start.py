@@ -1,6 +1,7 @@
 from aiogram import Router, types
 from aiogram.filters import Command
 from keyboards.main_kb import main_keyboard, start_keyboard
+from bot import db
 
 start_router = Router()
 
@@ -14,7 +15,8 @@ async def start_command(message: types.Message):
                  f"получение информации о самых популярных и новых выпусках!\n\n"
                  f"Чтобы воспользоваться всеми функциями бота необходимо пройти "
                  f"простенькую регистрацию")
-    # TODO: Add registration check
-    if False:
+    # Add registration check
+    if db.get_user(message.from_user.id):
         keyboard = main_keyboard()
+        greetings = f"И так, {message.from_user.first_name}, чем займемся?"
     await message.answer(text=greetings, reply_markup=keyboard)

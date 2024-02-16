@@ -1,6 +1,7 @@
 import asyncio
 import logging
-from bot import bot, dp
+from aiogram import Bot
+from bot import bot, dp, db
 from aiogram import types
 from handlers import (
     start_router,
@@ -13,6 +14,11 @@ from handlers import (
     registration_router,
     unknown_router
 )
+
+
+async def on_startup(bot: Bot):
+    db.create_tables()
+    db.populate_tables()
 
 
 async def main():
@@ -33,6 +39,7 @@ async def main():
                        registration_router,
                        unknown_router)
 
+    dp.startup.register(on_startup)
     # initialize bot
     await dp.start_polling(bot)
 

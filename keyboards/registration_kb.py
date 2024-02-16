@@ -1,8 +1,5 @@
 from aiogram import types
-
-
-# TODO: Get genres from db
-genres = ["Приключения", "Фэнтези", "Драма", "Комедия", "Исекай", "Меха", "Ужасы"]
+from bot import db
 
 
 def types_keyboard():
@@ -17,6 +14,7 @@ def types_keyboard():
 
 
 def genres_keyboard():
+    genres = db.get_genres()
     kb_buttons = []
     sub_list = []
     for genre in genres:
