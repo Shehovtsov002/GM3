@@ -10,6 +10,7 @@ from handlers import (
     novelty_router,
     popular_router,
     recommendations_router,
+    registration_router,
     unknown_router
 )
 
@@ -18,11 +19,7 @@ async def main():
     await bot.set_my_commands([
         types.BotCommand(command="myinfo", description="Получить инфу"),
         types.BotCommand(command="random_pic", description="Получить пикчу"),
-        types.BotCommand(command="start", description="Старт"),
-        types.BotCommand(command="genres", description="Жанры"),
-        types.BotCommand(command="novelty", description="Новинки"),
-        types.BotCommand(command="popular", description="Популярное"),
-        types.BotCommand(command="recommendations", description="Рекомендации")
+        types.BotCommand(command="start", description="Главная")
     ])
 
     # include commands
@@ -33,6 +30,7 @@ async def main():
                        novelty_router,
                        popular_router,
                        recommendations_router,
+                       registration_router,
                        unknown_router)
 
     # initialize bot

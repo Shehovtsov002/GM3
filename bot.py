@@ -6,4 +6,3 @@ from os import getenv
 load_dotenv()
 bot = Bot(token=getenv("BOT_TOKEN"))
 dp = Dispatcher()
-
