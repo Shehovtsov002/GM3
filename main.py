@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from aiogram import Bot
-from bot import bot, dp, db
+from bot import bot, dp, db, scheduler
 from aiogram import types
 from handlers import (
     start_router,
@@ -12,6 +12,7 @@ from handlers import (
     popular_router,
     recommendations_router,
     registration_router,
+    scheduled_message_router,
     unknown_router
 )
 
@@ -25,6 +26,7 @@ async def main():
     await bot.set_my_commands([
         types.BotCommand(command="myinfo", description="Получить инфу"),
         types.BotCommand(command="random_pic", description="Получить пикчу"),
+        types.BotCommand(command="random_pic", description="Напоминалка"),
         types.BotCommand(command="start", description="Главная")
     ])
 
@@ -37,9 +39,12 @@ async def main():
                        popular_router,
                        recommendations_router,
                        registration_router,
+                       scheduled_message_router,
                        unknown_router)
 
     dp.startup.register(on_startup)
+
+    scheduler.start()
     # initialize bot
     await dp.start_polling(bot)
 

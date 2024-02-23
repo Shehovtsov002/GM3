@@ -9,3 +9,4 @@ from .popular import popular_router
 from . recommendations import recommendations_router
 
 from .registration import registration_router
+from .scheduled_message import scheduled_message_router
