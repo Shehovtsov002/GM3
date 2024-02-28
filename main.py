@@ -13,6 +13,7 @@ from handlers import (
     recommendations_router,
     registration_router,
     scheduled_message_router,
+    houses_router,
     unknown_router
 )
 
@@ -26,7 +27,6 @@ async def main():
     await bot.set_my_commands([
         types.BotCommand(command="myinfo", description="Получить инфу"),
         types.BotCommand(command="random_pic", description="Получить пикчу"),
-        types.BotCommand(command="random_pic", description="Напоминалка"),
         types.BotCommand(command="start", description="Главная")
     ])
 
@@ -40,6 +40,7 @@ async def main():
                        recommendations_router,
                        registration_router,
                        scheduled_message_router,
+                       houses_router,
                        unknown_router)
 
     dp.startup.register(on_startup)

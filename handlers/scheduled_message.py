@@ -1,11 +1,10 @@
-from aiogram import Router, types
-from aiogram.filters import Command
+from aiogram import Router, types, F
 from bot import bot, scheduler, reminders
 
 scheduled_message_router = Router()
 
 
-@scheduled_message_router.message(lambda message: message.text.lower().startswith("напомни"))
+@scheduled_message_router.message(F.text.lower().startswith("напомни"))
 async def send_later(message: types.Message):
     text = message.text[7:]
     interval = 10

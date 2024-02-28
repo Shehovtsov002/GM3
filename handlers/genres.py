@@ -2,7 +2,6 @@ from aiogram import Router, types, F
 from aiogram.filters import Command
 from keyboards.genres_kb import genres_keyboard, title_keyboard
 from bot import db
-import os
 
 genres_router = Router()
 genres = db.get_genres()
@@ -27,8 +26,7 @@ async def get_titles(message: types.Message):
         return
     for title in titles:
         await message.answer_photo(caption=f"{title['type']}: {title['name']}\n"
-                                        f"Жанр: {title['genre']}\n"
-                                        f"Описание: {title['description']}",
+                                           f"Жанр: {title['genre']}\n"
+                                           f"Описание: {title['description']}",
                                    reply_markup=title_keyboard(title['url']),
                                    photo=types.FSInputFile(title['image']))
-
