@@ -27,6 +27,7 @@ async def main():
     await bot.set_my_commands([
         types.BotCommand(command="myinfo", description="Получить инфу"),
         types.BotCommand(command="random_pic", description="Получить пикчу"),
+        types.BotCommand(command="houses", description="Добавить дома в бд"),
         types.BotCommand(command="start", description="Главная")
     ])
 

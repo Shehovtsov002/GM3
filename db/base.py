@@ -45,6 +45,15 @@ class DB:
                 favorite_genres TEXT
             ) 
         ''')
+        self.cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS houses ( 
+                        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                        title TEXT,
+                        url TEXT,
+                        address TEXT,
+                        price TEXT
+                    )
+                ''')
 
     def populate_tables(self):
         '''Заполнение таблиц'''
@@ -96,6 +105,14 @@ class DB:
         sql = """
                 INSERT INTO users (id, name, age, comics_type, favorite_genres)
                 VALUES (:id, :name, :age, :comics_type, :favorite_genres)
+            """
+        self.cursor.execute(sql, data)
+        self.connection.commit()
+
+    def add_house(self, data: dict):
+        sql = """
+                INSERT INTO houses (title, url, address, price)
+                VALUES (:title, :link, :address, :price)
             """
         self.cursor.execute(sql, data)
         self.connection.commit()
